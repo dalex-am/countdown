@@ -1,0 +1,43 @@
+<!-- Display the countdown timer in an element -->
+<div style="display: flex; align-items: center; justify-content: center; font-size: 100px; height: 100%; flex-direction: column;">
+  <div style="display: flex; align-items: center; justify-content: center; font-size: 50px;">До шампанскага</div>
+  <div id="demo" style="display: flex; align-items: center; justify-content: center;"></div>
+</div>
+
+<div class="holder">
+  <div class="new-year">
+    
+  </div>
+</div>
+
+<script>
+let countDownDate = new Date("Dec 25, 2023 10:00:00").getTime();
+const now = new Date().getTime();
+const distance = countDownDate - now;
+const needDrink = distance < 0;
+
+if (distance < 0) {
+  const plus = Math.ceil(-distance / 86400000);
+  countDownDate += 86400000 * plus
+}
+
+// Update the count down every 1 second
+const x = setInterval(function() {
+
+  const now = new Date().getTime();
+  const distance = countDownDate - now;
+
+  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  document.getElementById("demo").innerHTML = days + "d " + hours + "h "
+  + minutes + "m " + seconds + "s ";
+
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("demo").innerHTML = "EXPIRED";
+  }
+}, 1000);
+</script>
